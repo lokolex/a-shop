@@ -3,15 +3,19 @@ import Header from '../header/Header';
 import { Outlet } from 'react-router-dom';
 import Footer from '../footer/Footer';
 
-const MyLayout = () => {
+const MyLayout = (): JSX.Element => {
   return (
-    <>
-      <Header />
-      <div className="container px-3">
+    <div className="min-h-screen overflow-hidden flex flex-col">
+      <div className="flex-none">
+        <Header />
+      </div>
+      <div className="grow container">
         <Outlet />
       </div>
-      <Footer />
-    </>
+      <div className="flex-none">
+        <Footer />
+      </div>
+    </div>
   );
 };
 

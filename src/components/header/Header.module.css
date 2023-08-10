@@ -1,0 +1,53 @@
+.wrapper {
+  @apply flex justify-between items-center;
+}
+
+.logo {
+  @apply italic text-4xl font-bold text-orange-700;
+}
+
+.logo-text {
+  @apply p-0 m-0 leading-none;
+}
+
+.logo-text > span {
+  @apply text-white;
+}
+
+.hamburger {
+  @apply hidden font-bold text-2xl text-white md:block;
+}
+
+.wrap-right {
+  @apply flex items-center gap-7 text-lg font-semibold;
+  @apply md:flex-col md:absolute md:bg-black md:top-0 md:right-0 md:w-3/5 md:z-50 md:h-screen md:justify-center;
+  @apply md:translate-x-full md:overflow-x-hidden md:invisible transition-all duration-200 ease-linear;
+}
+
+.show {
+  @apply translate-x-0 overflow-x-auto visible;
+}
+
+.wrap-ul {
+  @apply flex items-center gap-7 md:gap-9  md:flex-col;
+}
+
+.wrap-ul-link {
+  @apply text-white font-bold text-xl transition-all duration-300 hover:text-orange-700;
+}
+
+.badge {
+  @apply absolute -top-2 -right-5 rounded-full px-2 bg-white flex items-center align-middle;
+}
+
+.badge > span {
+  @apply text-sm font-bold;
+}
+
+.overlay {
+  @apply absolute right-0 top-0 w-0 h-screen bg-black z-10 opacity-25 transition-all duration-100 ease-linear invisible;
+}
+
+.overlay-show {
+  @apply w-screen visible;
+}
