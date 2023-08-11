@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { AiFillHome } from 'react-icons/ai';
 import { FaShoppingCart } from 'react-icons/fa';
@@ -8,6 +8,14 @@ import styles from './Header.module.css';
 
 const Header = () => {
   const [isShow, setIsShow] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (isShow) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [isShow]);
 
   const handleHide = () => {
     setIsShow(false);

@@ -9,7 +9,7 @@ const MyLayout = (): JSX.Element => {
       <div className="flex-none">
         <Header />
       </div>
-      <div className="grow container">
+      <div className="grow">
         <Outlet />
       </div>
       <div className="flex-none">

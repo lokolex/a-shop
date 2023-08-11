@@ -6,6 +6,7 @@ import About from './pages/about/About';
 import Login from './pages/login/Login';
 import Register from './pages/register/Register';
 import Cart from './pages/cart/Cart';
+import NotFound from './pages/notFound/NotFound';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route index path="/login" element={<Login />} />
         <Route index path="/register" element={<Register />} />
         <Route index path="/cart" element={<Cart />} />
+        <Route index path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );
