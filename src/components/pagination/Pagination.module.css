@@ -1,0 +1,24 @@
+.wrapper {
+  @apply flex gap-4 justify-center items-center;
+}
+
+.disabled {
+  @apply text-gray-300;
+}
+
+.page {
+  @apply bg-blue-700 px-3 py-1 font-semibold rounded text-white 
+  hover:bg-blue-900 hover:text-orange-600;
+}
+
+.active-page {
+  @apply text-orange-600 !important;
+}
+
+.arrow {
+  @apply font-semibold text-2xl;
+}
+
+.dots {
+  @apply font-semibold;
+}

@@ -4,7 +4,7 @@
 }
 
 .img-wrapper {
-  @apply relative w-[260px] h-[260px] flex justify-center overflow-hidden bg-cover bg-no-repeat;
+  @apply relative w-[260px] h-[260px] flex justify-center overflow-hidden bg-cover bg-no-repeat border-b-2 p-2;
 }
 
 .img-link {

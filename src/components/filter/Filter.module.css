@@ -15,11 +15,6 @@
   background-color: orangered;
 }
 
-.price {
-  @apply h-[4px] w-full cursor-pointer appearance-none border-transparent 
-  bg-neutral-200 dark:bg-neutral-600;
-}
-
 .reset {
   @apply w-full inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase 
   leading-normal text-white shadow-[0_4px_9px_-4px_#dc4c64] transition duration-150 ease-in-out 

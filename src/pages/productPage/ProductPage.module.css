@@ -1,0 +1,14 @@
+.main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 10px;
+  padding: 50px 10px;
+}
+
+.button-to-cart {
+  @apply py-2 px-3 bg-orange-600 text-white font-semibold rounded w-1/2 mt-5 transition-all duration-300 hover:bg-orange-700;
+}
+
+.button-back {
+  @apply bg-primary-600 transition-all duration-300 hover:bg-primary-700 rounded py-1 px-2 text-white my-5;
+}

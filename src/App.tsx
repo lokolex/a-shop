@@ -14,6 +14,7 @@ import Admin from './pages/admin/Admin';
 import PrivateRoute from './components/privateRoute/PrivateRoute';
 import NewProduct from './pages/admin/newProduct/NewProduct';
 import NotFound from './pages/notFound/NotFound';
+import ProductPage from './pages/productPage/ProductPage';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -30,12 +31,11 @@ function App() {
     <Routes>
       <Route path="/" element={<MyLayout />}>
         <Route index path="/" element={<Home />} />
-        <Route index path="/about" element={<About />} />
-        <Route index path="/login" element={<Login />} />
-        <Route index path="/register" element={<Register />} />
-        <Route index path="/cart" element={<Cart />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/cart" element={<Cart />} />
         <Route
-          index
           path="/admin"
           element={
             <PrivateRoute>
@@ -44,15 +44,15 @@ function App() {
           }
         />
         <Route
-          index
-          path="/admin/newProduct"
+          path="/admin/newProduct/:id"
           element={
             <PrivateRoute>
               <NewProduct />
             </PrivateRoute>
           }
         />
-        <Route index path="*" element={<NotFound />} />
+        <Route path="/products/:productId" element={<ProductPage />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );

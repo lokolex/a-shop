@@ -11,10 +11,14 @@ export enum CategoriesProduct {
 export interface IPostProductArgs {
   title: string;
   brand: string;
-  categories: CategoriesProduct;
+  categories: CategoriesProduct | string;
   price: number;
   description: string;
   imageUrl: string;
+}
+
+export interface IEditProductArgs extends IPostProductArgs {
+  id?: number;
 }
 
 export interface IProduct extends IPostProductArgs {
@@ -26,4 +30,24 @@ export interface IProduct extends IPostProductArgs {
 export interface IProductsState {
   products: IProduct[];
   status: Status;
+  totalProductCount: number;
+}
+
+export interface IGetProductArgs {
+  searchValue?: string;
+  categories?: string;
+  currentPage: number;
+  pageSize?: number;
+  minPrice?: number;
+  maxPrice?: number;
+}
+
+export interface IGetProductsResult {
+  data: IProduct[];
+  totalCount: number;
+}
+
+export interface IDeleteProductArgs {
+  id: number;
+  title: string;
 }

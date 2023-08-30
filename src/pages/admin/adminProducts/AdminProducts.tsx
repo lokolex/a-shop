@@ -1,11 +1,38 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectProducts } from '../../../redux/slices/productsSlice/productsSlice';
+import { deleteProduct, selectProducts } from '../../../redux/slices/productsSlice/productsSlice';
 import { priceFormatingToRus } from '../../../utils/priceFormatingToRus';
 import { MdDelete, MdEdit } from 'react-icons/md';
+import { useAppDispatch } from '../../../redux/store';
+import { Link } from 'react-router-dom';
 
-const AdminProducts = () => {
+interface IAdminProductsProps {
+  totalElements: number;
+  currentPage: number;
+  pageSize: number;
+}
+
+const AdminProducts = (props: IAdminProductsProps) => {
+  const { currentPage, pageSize, totalElements } = props;
   const products = useSelector(selectProducts);
+  const dispatch = useAppDispatch();
+
+  //functionality for displaying the sequence number
+  const array: number[] = [];
+  const numbers: number[][] = [];
+  for (let i = 1; i <= totalElements; i++) {
+    array.push(i);
+  }
+  for (let i = 0; i < array.length; i += pageSize) {
+    const chunk = array.slice(i, i + pageSize);
+    numbers.push(chunk);
+  }
+
+  const handleDeleteProduct = (id: number, title: string) => {
+    if (window.confirm('Вы действительно хотите удалить продукт?')) {
+      dispatch(deleteProduct({ id, title }));
+    }
+    return;
+  };
 
   return (
     <div className="flex flex-col">
@@ -47,7 +74,9 @@ const AdminProducts = () => {
                           : `border-b dark:border-neutral-500 bg-white`
                       }
                     >
-                      <td className="whitespace-nowrap px-6 py-4 font-medium">{i + 1}</td>
+                      <td className="whitespace-nowrap px-6 py-4 font-medium">
+                        {numbers[currentPage][i]}
+                      </td>
                       <td className="whitespace-nowrap px-6 py-4">{brand}</td>
                       <td className="whitespace-nowrap px-6 py-4">
                         <img
@@ -62,10 +91,10 @@ const AdminProducts = () => {
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
                         <div className="flex">
-                          <button className="mr-4">
+                          <Link to={`newProduct/${id}`} className="mr-4">
                             <MdEdit className="text-2xl text-green-600" />
-                          </button>
-                          <button>
+                          </Link>
+                          <button onClick={() => handleDeleteProduct(id, title)}>
                             <MdDelete className="text-2xl text-red-600" />
                           </button>
                         </div>

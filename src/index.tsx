@@ -9,6 +9,7 @@ import App from './App';
 import 'tw-elements-react/dist/css/tw-elements-react.min.css';
 import './components/slider/assets/slick-slider/css/slick.css';
 import './components/slider/assets/slick-slider/css/slick-theme.css';
+import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);

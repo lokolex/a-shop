@@ -1,0 +1,4 @@
+.price {
+  @apply h-[4px] w-full cursor-pointer appearance-none border-transparent 
+  bg-neutral-200 dark:bg-neutral-600;
+}

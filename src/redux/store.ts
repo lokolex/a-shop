@@ -3,11 +3,13 @@ import { useDispatch } from 'react-redux';
 
 import authReducer from './slices/authSlice/authSlice';
 import productsReducer from './slices/productsSlice/productsSlice';
+import filterReducer from './slices/filterSlice/filterSlice';
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     products: productsReducer,
+    filter: filterReducer,
   },
 });
 

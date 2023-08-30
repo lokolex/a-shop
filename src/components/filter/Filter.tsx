@@ -1,28 +1,62 @@
 import { useState } from 'react';
-import { priceFormatingToRus } from '../../utils/priceFormatingToRus';
+import { useDispatch, useSelector } from 'react-redux';
+import { CategoriesProduct } from '../../redux/slices/productsSlice/types';
+import {
+  selectCategoriesFilter,
+  setCategoriesFilter,
+  setCurrentPage,
+  setMaxPrice,
+} from '../../redux/slices/filterSlice/filterSlice';
 
 import styles from './Filter.module.css';
+import RangePrice from './rangePrice/RangePrice';
+
+type TCategoriesFilter = [
+  CategoriesProduct.EMPTY,
+  CategoriesProduct.PHONES,
+  CategoriesProduct.GARMENT,
+  CategoriesProduct.ELECTRONICS,
+  CategoriesProduct.LAPTOPS
+];
 
 const categories = ['Все', 'Телефоны', 'Одежда', 'Электроника', 'Ноутбуки'];
+const categotiesFilter: TCategoriesFilter = [
+  CategoriesProduct.EMPTY,
+  CategoriesProduct.PHONES,
+  CategoriesProduct.GARMENT,
+  CategoriesProduct.ELECTRONICS,
+  CategoriesProduct.LAPTOPS,
+];
 
 const Filter = () => {
-  const [price, setPrice] = useState(150000);
   const [brand, setBrand] = useState('all');
-  const [categoryActive, setCategoryActive] = useState(0);
+  const category = useSelector(selectCategoriesFilter);
+  const index = categotiesFilter.indexOf(category);
+  const [categoryActive, setCategoryActive] = useState(index);
+  const [isResetFilters, setIsResetFilters] = useState(false);
+  const dispatch = useDispatch();
+
+  const handleClickOnCategory = (index: number) => {
+    setCategoryActive(index);
+    dispatch(setCategoriesFilter(categotiesFilter[index]));
+  };
 
   const resetFilters = () => {
+    setIsResetFilters(true);
     setCategoryActive(0);
-    setPrice(150000);
     setBrand('all');
+    dispatch(setCategoriesFilter(CategoriesProduct.EMPTY));
+    dispatch(setCurrentPage(0));
+    dispatch(setMaxPrice(150000));
   };
 
   return (
-    <div className="bg-white w-3/4 p-4 rounded shadow-white shadow mt-6">
+    <div className="bg-white w-3/4 p-4 rounded shadow-white shadow">
       <h4 className="text-lg font-semibold">Категория</h4>
       <div className="mb-4">
         {categories.map((category, i) => (
           <button
-            onClick={() => setCategoryActive(i)}
+            onClick={() => handleClickOnCategory(i)}
             key={category}
             className={
               categoryActive === i
@@ -49,19 +83,9 @@ const Filter = () => {
         </select>
       </div>
       <h4 className="text-lg font-semibold">Цена</h4>
-      <p>{priceFormatingToRus(price)}₽</p>
-      <div className="mb-4">
-        <input
-          name="price"
-          value={price}
-          onChange={(e) => setPrice(+e.target.value)}
-          type="range"
-          min={100}
-          max={150000}
-          step={100}
-          className={styles.price}
-        />
-      </div>
+
+      <RangePrice isResetFilters={isResetFilters} setIsResetFilters={setIsResetFilters} />
+
       <button onClick={resetFilters} type="button" className={`bg-danger ${styles.reset}`}>
         Сбросить всё
       </button>

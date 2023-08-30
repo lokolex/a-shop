@@ -19,7 +19,7 @@ const Register = () => {
     const data = await dispatch(fetchRegister(values));
 
     if (!data.payload) {
-      return alert('Не удалось зарегистрироваться!');
+      return;
     }
 
     if ('accessToken' in (data.payload as IDataAxios)) {

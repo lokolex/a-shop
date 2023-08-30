@@ -1,0 +1,7 @@
+.icons {
+  @apply cursor-pointer text-blue-600;
+}
+
+.icons-active {
+  @apply text-orange-600 scale-125;
+}

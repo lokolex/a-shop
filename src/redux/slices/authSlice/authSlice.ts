@@ -9,21 +9,35 @@ import {
   IFetchLoginArgs,
   IFetchRegisterArgs,
 } from './types';
+import { toast } from 'react-toastify';
+import { isAxiosError } from 'axios';
 
 // async thunks---------------------------------
-export const fetchRegister = createAsyncThunk<IDataAxios, IFetchRegisterArgs>(
+export const fetchRegister = createAsyncThunk<IDataAxios | undefined, IFetchRegisterArgs>(
   'auth/fetchRegister',
   async (params) => {
-    const { data } = await axios.post<IDataAxios>('/register', params);
-    return data;
+    try {
+      const { data } = await axios.post<IDataAxios>('/register', params);
+      return data;
+    } catch (error) {
+      if (isAxiosError(error)) {
+        throw new Error(error.response?.data);
+      }
+    }
   }
 );
 
-export const fetchLogin = createAsyncThunk<IDataAxios, IFetchLoginArgs>(
+export const fetchLogin = createAsyncThunk<IDataAxios | undefined, IFetchLoginArgs>(
   'auth/fetchLogin',
   async (params) => {
-    const { data } = await axios.post<IDataAxios>('/login', params);
-    return data;
+    try {
+      const { data } = await axios.post<IDataAxios>('/login', params);
+      return data;
+    } catch (error) {
+      if (isAxiosError(error)) {
+        throw new Error(error.response?.data);
+      }
+    }
   }
 );
 
@@ -59,11 +73,15 @@ export const authSlice = createSlice({
       })
       .addCase(fetchRegister.fulfilled, (state, action) => {
         state.status = Status.SUCCESS;
-        state.user = action.payload.user;
+        if (action.payload) {
+          state.user = action.payload.user;
+          toast.success(`${action.payload.user.firstName} успешно зарегистрирован!`);
+        }
       })
-      .addCase(fetchRegister.rejected, (state) => {
+      .addCase(fetchRegister.rejected, (state, action) => {
         state.status = Status.ERROR;
         state.user = null;
+        toast.error(`Неудачная регистрация. ${action.error.message}`);
       })
       //login
       .addCase(fetchLogin.pending, (state) => {
@@ -72,11 +90,15 @@ export const authSlice = createSlice({
       })
       .addCase(fetchLogin.fulfilled, (state, action) => {
         state.status = Status.SUCCESS;
-        state.user = action.payload.user;
+        if (action.payload) {
+          state.user = action.payload.user;
+          toast.success(`Добро пожаловать, ${action.payload.user.firstName}`);
+        }
       })
-      .addCase(fetchLogin.rejected, (state) => {
+      .addCase(fetchLogin.rejected, (state, action) => {
         state.status = Status.ERROR;
         state.user = null;
+        toast.error(`Не удалось войти! ${action.error.message}`);
       })
       //authMe
       .addCase(fetchAuthMe.pending, (state) => {

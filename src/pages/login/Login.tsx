@@ -23,7 +23,7 @@ const Login = () => {
     const data = await dispatch(fetchLogin(values));
 
     if (!data.payload) {
-      return alert('Не удалось войти!');
+      return;
     }
 
     if ('accessToken' in (data.payload as IDataAxios)) {
