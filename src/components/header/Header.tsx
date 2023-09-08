@@ -8,6 +8,11 @@ import { selectUser, logout, selectAuthStatus } from '../../redux/slices/authSli
 import { checkAdmin } from '../../utils/checkAdmin';
 import { Status } from '../../redux/slices/authSlice/types';
 import { BeatLoader } from 'react-spinners';
+import {
+  selectCartItems,
+  selectTotalCount,
+  selectTotalPrice,
+} from '../../redux/slices/cartSlice/cartSlice';
 
 import styles from './Header.module.css';
 
@@ -17,8 +22,17 @@ const Header = () => {
   const dispatch = useDispatch();
   const authStatus = useSelector(selectAuthStatus);
   const isLoading = authStatus === Status.LOADING;
+  const totalCount = useSelector(selectTotalCount);
+  const totalPrice = useSelector(selectTotalPrice);
+  const cartItems = useSelector(selectCartItems);
 
   const isAdmin = checkAdmin(user?.email);
+
+  useEffect(() => {
+    const cartObj = { items: cartItems, totalCount, totalPrice };
+    const json = JSON.stringify(cartObj);
+    window.localStorage.setItem('cart', json);
+  }, [cartItems, totalCount, totalPrice]);
 
   useEffect(() => {
     if (isShow) {
@@ -131,7 +145,7 @@ const Header = () => {
                       <FaShoppingCart className="text-2xl" />
                     </NavLink>
                     <div className={styles.badge}>
-                      <span>0</span>
+                      <span>{totalCount}</span>
                     </div>
                   </li>
                 </ul>

@@ -6,27 +6,32 @@ import { shortText } from '../../../utils/shortText';
 import { Link } from 'react-router-dom';
 
 import styles from './ProductsItemGrid.module.css';
+import { withCartFunctional } from '../../../HOC/withCartFunctional';
 
-const ProductsItemGrid = (props: IProduct) => {
-  const { imageUrl, title, price, id } = props;
+interface IProductsItemGrid extends IProduct {
+  handleAddCart: (item: IProduct) => void;
+}
+
+const ProductsItemGrid = (props: IProductsItemGrid) => {
+  const { handleAddCart, ...product } = props;
 
   return (
     <div className={styles.wrapper}>
       <TERipple>
         <div className={styles['img-wrapper']}>
-          <img className="rounded-t-lg object-contain" src={imageUrl} alt={title} />
-          <Link to={`/products/${id}`}>
+          <img className="rounded-t-lg object-contain" src={product.imageUrl} alt={product.title} />
+          <Link to={`/products/${product.id}`}>
             <div className={styles['img-link']}></div>
           </Link>
         </div>
       </TERipple>
       <div className="p-6">
-        <h5 className={styles.title}>{shortText(title, 19)}</h5>
+        <h5 className={styles.title}>{shortText(product.title, 19)}</h5>
         <div className="flex items-center justify-between">
           <h4 className="font-semibold text-base dark:text-neutral-200">
-            {priceFormatingToRus(price)}₽
+            {priceFormatingToRus(product.price)}₽
           </h4>
-          <button type="button">
+          <button onClick={() => handleAddCart(product)} type="button">
             <BiSolidCartAdd className="text-3xl text-orange-700" />
           </button>
         </div>
@@ -35,4 +40,4 @@ const ProductsItemGrid = (props: IProduct) => {
   );
 };
 
-export default ProductsItemGrid;
+export default withCartFunctional(ProductsItemGrid);

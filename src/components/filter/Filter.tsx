@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CategoriesProduct } from '../../redux/slices/productsSlice/types';
 import {
+  selectBrands,
   selectCategoriesFilter,
+  setBrands,
   setCategoriesFilter,
   setCurrentPage,
   setMaxPrice,
@@ -10,6 +12,7 @@ import {
 
 import styles from './Filter.module.css';
 import RangePrice from './rangePrice/RangePrice';
+import { EBrands } from '../../redux/slices/filterSlice/types';
 
 type TCategoriesFilter = [
   CategoriesProduct.EMPTY,
@@ -20,7 +23,7 @@ type TCategoriesFilter = [
 ];
 
 const categories = ['Все', 'Телефоны', 'Одежда', 'Электроника', 'Ноутбуки'];
-const categotiesFilter: TCategoriesFilter = [
+const categoriesFilter: TCategoriesFilter = [
   CategoriesProduct.EMPTY,
   CategoriesProduct.PHONES,
   CategoriesProduct.GARMENT,
@@ -29,25 +32,38 @@ const categotiesFilter: TCategoriesFilter = [
 ];
 
 const Filter = () => {
-  const [brand, setBrand] = useState('all');
   const category = useSelector(selectCategoriesFilter);
-  const index = categotiesFilter.indexOf(category);
-  const [categoryActive, setCategoryActive] = useState(index);
+  const brandFilter = useSelector(selectBrands);
+  const [index, setIndex] = useState(0);
+  const [categoryActive, setCategoryActive] = useState(0);
   const [isResetFilters, setIsResetFilters] = useState(false);
+  const [brand, setBrand] = useState(brandFilter);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setIndex(categoriesFilter.indexOf(category));
+    setCategoryActive(index);
+  }, [category, index]);
 
   const handleClickOnCategory = (index: number) => {
     setCategoryActive(index);
-    dispatch(setCategoriesFilter(categotiesFilter[index]));
+    dispatch(setCategoriesFilter(categoriesFilter[index]));
+  };
+
+  const handleChangeBrand = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+    setBrand(value as EBrands);
+    dispatch(setBrands(value as EBrands));
   };
 
   const resetFilters = () => {
     setIsResetFilters(true);
     setCategoryActive(0);
-    setBrand('all');
+    setBrand(EBrands.ALL);
     dispatch(setCategoriesFilter(CategoriesProduct.EMPTY));
     dispatch(setCurrentPage(0));
     dispatch(setMaxPrice(150000));
+    dispatch(setBrands(EBrands.ALL));
   };
 
   return (
@@ -70,16 +86,12 @@ const Filter = () => {
       </div>
       <h4 className="text-lg font-semibold">Брэнд</h4>
       <div className="mb-4">
-        <select
-          onChange={(e) => setBrand(e.target.value)}
-          value={brand}
-          name="brand"
-          className="border w-full"
-        >
-          <option value="all">Все</option>
-          <option value="apple">Apple</option>
-          <option value="lenovo">Lenovo</option>
-          <option value="toshiba">Toshiba</option>
+        <select onChange={handleChangeBrand} value={brand} name="brand" className="border w-full">
+          {Object.values(EBrands).map((value) => (
+            <option key={value} value={value}>
+              {value === 'All' ? 'Все' : value}
+            </option>
+          ))}
         </select>
       </div>
       <h4 className="text-lg font-semibold">Цена</h4>

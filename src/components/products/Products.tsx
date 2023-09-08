@@ -1,4 +1,3 @@
-import { GridLoader } from 'react-spinners';
 import ProductsItemGrid from './productsItemGrid/ProductsItemGrid';
 import ProductsItemList from './productsItemList/ProductsItemList';
 import { useSelector } from 'react-redux';
@@ -7,6 +6,11 @@ import {
   selectProductsStatus,
 } from '../../redux/slices/productsSlice/productsSlice';
 import { Status } from '../../redux/slices/authSlice/types';
+import SkeletonGrid from '../UI/skeleton/SkeletonGrid';
+
+import styles from './Products.module.css';
+import { selectPageSize } from '../../redux/slices/filterSlice/filterSlice';
+import SkeletonList from '../UI/skeleton/SkeletonList';
 
 interface IProductsProps {
   isGrid: boolean;
@@ -15,22 +19,30 @@ interface IProductsProps {
 const Products = (props: IProductsProps) => {
   const products = useSelector(selectProducts);
   const productsStatus = useSelector(selectProductsStatus);
+  const pageSize = useSelector(selectPageSize);
   const isLoading = productsStatus === Status.LOADING;
   const { isGrid } = props;
 
+  const skeletonArray = [];
+
+  for (let i = 0; i < pageSize; i++) {
+    skeletonArray.push(i);
+  }
+
   return (
-    <div className="flex gap-6 md:flex-wrap justify-center">
-      <div className="w-full h-full flex items-center justify-center">
-        <GridLoader color="#c2410c" loading={isLoading} className="mt-7" />
+    <>
+      <div className={isGrid ? styles['wrapper-grid'] : styles['wrapper-list']}>
+        {isLoading && isGrid && skeletonArray.map((num) => <SkeletonGrid key={num} />)}
+        {isLoading && !isGrid && skeletonArray.map((num) => <SkeletonList key={num} />)}
+        {products.map((product) => {
+          if (isGrid) {
+            return <ProductsItemGrid key={product.id} {...product} />;
+          } else {
+            return <ProductsItemList key={product.id} {...product} />;
+          }
+        })}
       </div>
-      {products.map((product) => {
-        if (isGrid) {
-          return <ProductsItemGrid key={product.id} {...product} />;
-        } else {
-          return <ProductsItemList key={product.id} {...product} />;
-        }
-      })}
-    </div>
+    </>
   );
 };
 

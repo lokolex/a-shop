@@ -23,7 +23,7 @@ module.exports = {
         xl: { min: '1200px' },
         lg: { min: '992px' },
         md: { min: '768px' },
-        sm: { max: '576px' },
+        sm: { min: '576px' },
       },
     },
   },

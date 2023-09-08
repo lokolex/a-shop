@@ -22,7 +22,7 @@ const Pagination = (props: IPaginationProps) => {
         previousLabel="<"
         // initialPage={currentPage}
         forcePage={currentPage}
-        marginPagesDisplayed={1}
+        marginPagesDisplayed={2}
         containerClassName={styles.wrapper}
         activeLinkClassName={styles['active-page']}
         disabledClassName={styles.disabled}

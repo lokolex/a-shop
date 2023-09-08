@@ -110,9 +110,9 @@ const NewProduct = () => {
   }, [imageURL]);
 
   return (
-    <>
+    <div className="bg-gray-100">
       <div className="container md:max-w-full">
-        <div className="my-5">
+        <div className="py-5">
           <h2 className="text-center mb-3 text-xl font-semibold">
             {id === 'add' ? 'Добавить новый продукт' : `Изменить ${product?.title}`}
           </h2>
@@ -236,7 +236,7 @@ const NewProduct = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

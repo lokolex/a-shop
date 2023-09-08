@@ -40,6 +40,8 @@ export interface IGetProductArgs {
   pageSize?: number;
   minPrice?: number;
   maxPrice?: number;
+  brand?: string;
+  sort?: string;
 }
 
 export interface IGetProductsResult {

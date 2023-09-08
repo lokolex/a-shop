@@ -1,0 +1,32 @@
+.wrapper {
+  @apply animate-pulse cursor-wait pb-6 w-[260px] block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] 
+  dark:bg-neutral-700;
+}
+
+.img-wrapper {
+  @apply relative w-[180px] h-[230px] rounded my-0 mx-auto overflow-hidden bg-cover bg-no-repeat;
+}
+
+.img {
+  @apply mt-5 inline-block w-[180px] rounded h-[230px]  bg-current text-base text-neutral-700 opacity-50 dark:text-neutral-50;
+}
+
+.divider {
+  @apply mt-6 mb-5 h-[1px] w-full bg-current text-base text-neutral-700 opacity-50 dark:text-neutral-50;
+}
+
+.title {
+  @apply w-[212px] h-[22px] rounded my-0 mx-auto bg-current text-base text-neutral-700 opacity-50 dark:text-neutral-50;
+}
+
+.bottom-wrapper {
+  @apply flex justify-between items-center w-[212px] h-[30px] mt-4 mx-auto;
+}
+
+.price {
+  @apply w-[71px] h-[24px] rounded bg-current text-base text-neutral-700 opacity-50 dark:text-neutral-50;
+}
+
+.cart {
+  @apply w-[30px] h-[30px] rounded bg-current text-base text-neutral-700 opacity-50 dark:text-neutral-50;
+}

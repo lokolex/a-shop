@@ -13,34 +13,30 @@ interface IRangePriceProps {
 const RangePrice = (props: IRangePriceProps) => {
   const { isResetFilters, setIsResetFilters } = props;
   const maxPrice = useSelector(selectMaxPrice);
-  const [maxPriceValue, setMaxPriceValue] = useState(maxPrice);
-  const [debouncePrice, setDebouncePrice] = useState(maxPrice);
+  const [maxPriceValue, setMaxPriceValue] = useState(150000);
   const [isChange, setIsChange] = useState(false);
 
   const dispatch = useDispatch();
 
-  //to avoid a large number of requests.
   useEffect(() => {
-    if (isChange) {
-      setDebouncePrice(maxPriceValue);
-    }
-    setIsChange(false);
-    // eslint-disable-next-line
-  }, [isChange]);
+    setMaxPriceValue(maxPrice);
+  }, [maxPrice]);
 
   useEffect(() => {
     if (isResetFilters) {
       setMaxPriceValue(150000);
-      setDebouncePrice(150000);
       setIsResetFilters(false);
     }
     // eslint-disable-next-line
   }, [isResetFilters]);
 
   useEffect(() => {
-    dispatch(setMaxPrice(debouncePrice));
+    if (isChange) {
+      dispatch(setMaxPrice(maxPriceValue));
+    }
+    setIsChange(false);
     // eslint-disable-next-line
-  }, [debouncePrice]);
+  }, [isChange]);
 
   return (
     <>

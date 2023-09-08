@@ -1,0 +1,14 @@
+.wrapper-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  justify-items: center;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.wrapper-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(1fr, 1fr));
+  gap: 15px;
+  margin-top: 25px;
+}

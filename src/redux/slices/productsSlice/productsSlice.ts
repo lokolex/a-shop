@@ -13,6 +13,7 @@ import {
 } from './types';
 import { RootState } from '../../store';
 import { toast } from 'react-toastify';
+import { EBrands } from '../filterSlice/types';
 
 // async thunks---------------------------------
 export const getProducts = createAsyncThunk<IGetProductsResult, IGetProductArgs>(
@@ -24,11 +25,13 @@ export const getProducts = createAsyncThunk<IGetProductsResult, IGetProductArgs>
     pageSize = 6,
     minPrice = 0,
     maxPrice = 150000,
+    brand = EBrands.ALL,
+    sort,
   }) => {
     const response = await axios.get<IProduct[]>(
       `/products?_page=${
         currentPage + 1
-      }&_limit=${pageSize}&${categories}&q=${searchValue}&price_gte=${minPrice}&price_lte=${maxPrice}`
+      }&_limit=${pageSize}&${categories}&${brand}&${sort}&q=${searchValue}&price_gte=${minPrice}&price_lte=${maxPrice}`
     );
     const totalCount = +response.headers['x-total-count'];
     const result = {

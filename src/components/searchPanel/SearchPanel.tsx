@@ -1,5 +1,7 @@
 import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 import { FaThList } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
+import { selectTotalProductCount } from '../../redux/slices/productsSlice/productsSlice';
 import Search from './search/Search';
 import Sort from './sort/Sort';
 
@@ -11,6 +13,8 @@ interface ISearchPanelProps {
 }
 
 const SearchPanel = ({ isGrid, setIsGrid }: ISearchPanelProps) => {
+  const totalProducts = useSelector(selectTotalProductCount);
+
   const handleClickOnGrid = () => {
     setIsGrid(true);
     const value = true;
@@ -36,9 +40,13 @@ const SearchPanel = ({ isGrid, setIsGrid }: ISearchPanelProps) => {
           className={isGrid ? styles.icons : `${styles.icons} ${styles['icons-active']}`}
           size={18}
         />
+        <div className="text-gray-500">Всего товаров: {totalProducts}</div>
       </div>
       <Search />
-      <Sort />
+      <div className="flex gap-2">
+        <div className="text-gray-500">Сортировка:</div>
+        <Sort />
+      </div>
     </div>
   );
 };

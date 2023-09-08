@@ -10,5 +10,5 @@
 }
 
 .button-back {
-  @apply bg-primary-600 transition-all duration-300 hover:bg-primary-700 rounded py-1 px-2 text-white my-5;
+  @apply block bg-primary-600 transition-all duration-300 hover:bg-primary-700 rounded py-1 px-2 text-white my-7;
 }
