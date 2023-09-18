@@ -13,7 +13,7 @@ import { CategoriesProduct } from '../../../redux/slices/productsSlice/types';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { BarLoader } from 'react-spinners';
-import { setCurrentPage } from '../../../redux/slices/filterSlice/filterSlice';
+import { MAX_PRICE, setCurrentPage } from '../../../redux/slices/filterSlice/filterSlice';
 
 import styles from './NewProduct.module.css';
 
@@ -45,8 +45,11 @@ const NewProduct = () => {
 
   const uploadToImgBB = (e: React.ChangeEvent<HTMLInputElement>) => {
     setImageValue(e.target.value);
+    const imgbbKey = process.env.REACT_APP_IMGBB_KEY;
     const form = new FormData();
-    form.set('key', '2dae7200ac62f6bd0eced6cee40b615b');
+    if (imgbbKey) {
+      form.set('key', imgbbKey);
+    }
     if (e.target.files?.length) {
       const name = e.target.files[0].name.split('.')[0] + '-' + Date.now();
       form.append('image', e.target.files[0]);
@@ -83,7 +86,7 @@ const NewProduct = () => {
       brand: Yup.string().required('Обязательное поле'),
       categories: Yup.string().required('Выберите категорию'),
       price: Yup.number()
-        .max(150000, 'Максимальная цена 150 000 руб')
+        .max(MAX_PRICE, 'Максимальная цена 150 000 руб')
         .min(1, 'Минимальная цена 1 руб')
         .required('Введите цену'),
       description: Yup.string().required('Введите описание товара'),

@@ -1,5 +1,5 @@
 .wrapper-img {
-  @apply mb-12 grow-0 basis-auto md:mb-0 md:w-9/12 md:shrink-0 lg:w-6/12 xl:w-6/12;
+  @apply mb-12 grow-0 basis-6/12 lg:basis-full;
 }
 
 .button-login {

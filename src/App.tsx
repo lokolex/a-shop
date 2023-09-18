@@ -6,7 +6,7 @@ import { RingLoader } from 'react-spinners';
 
 const MyLayout = lazy(() => import('./components/MyLayout/MyLayout'));
 const Home = lazy(() => import('./pages/home/Home'));
-const About = lazy(() => import('./pages/about/About'));
+const MyOrders = lazy(() => import('./pages/myOrders/MyOrders'));
 const Cart = lazy(() => import('./pages/cart/Cart'));
 const PrivateRoute = lazy(() => import('./components/privateRoute/PrivateRoute'));
 const Admin = lazy(() => import('./pages/admin/Admin'));
@@ -42,7 +42,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MyLayout />}>
           <Route index path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/myOrders" element={<MyOrders />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/cart" element={<Cart />} />

@@ -4,6 +4,8 @@ export interface IUser {
   lastName: string;
   email: string;
   avatarUrl?: string;
+  createdAt: number;
+  updatedAt: number;
 }
 
 export enum Status {

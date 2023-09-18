@@ -58,16 +58,16 @@ const Login = () => {
 
   return (
     <section className="py-5">
-      <div className="container max-w-full">
+      <div className="container lg:flex-wrap md:max-w-full">
         <div className="h-full">
           {/* <!-- Left column container with background--> */}
-          <div className="g-6 flex flex-wrap items-center justify-center ">
+          <div className="gap-6 flex items-center justify-between md:flex-wrap lg:justify-center">
             <div className={styles['wrapper-img']}>
               <img src={loginImg} className="w-full" alt="Login" />
             </div>
 
             {/* <!-- Right column container --> */}
-            <div className="mb-12 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12">
+            <div className="basis-4/12 lg:basis-9/12">
               <form onSubmit={formik.handleSubmit}>
                 {/* <!-- Email input --> */}
                 <TEInput
@@ -101,7 +101,7 @@ const Login = () => {
 
                 {/* <!-- Login button --> */}
                 <div className="text-center lg:text-left">
-                  <TERipple rippleColor="light" className="lg:w-full">
+                  <TERipple rippleColor="light" className="xl:w-full">
                     <button type="submit" className={`bg-primary ${styles['button-login']}`}>
                       Войти
                     </button>
@@ -112,7 +112,8 @@ const Login = () => {
                     У Вас нет аккаунта?{' '}
                     <Link
                       to="/register"
-                      className="text-danger transition duration-150 ease-in-out hover:text-danger-600 focus:text-danger-600 active:text-danger-700"
+                      className="text-danger transition duration-150 ease-in-out hover:text-danger-600 
+                        focus:text-danger-600 active:text-danger-700 text-base"
                     >
                       Зарегистрироваться
                     </Link>

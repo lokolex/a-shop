@@ -1,7 +1,8 @@
 {
-  "name": "frontend",
+  "name": "ashop",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://alex-str.ru/ashop",
   "dependencies": {
     "@headlessui/react": "^1.7.16",
     "@heroicons/react": "^2.0.18",

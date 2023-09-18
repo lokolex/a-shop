@@ -14,6 +14,7 @@ import {
 import { RootState } from '../../store';
 import { toast } from 'react-toastify';
 import { EBrands } from '../filterSlice/types';
+import { MAX_PRICE } from '../filterSlice/filterSlice';
 
 // async thunks---------------------------------
 export const getProducts = createAsyncThunk<IGetProductsResult, IGetProductArgs>(
@@ -24,7 +25,7 @@ export const getProducts = createAsyncThunk<IGetProductsResult, IGetProductArgs>
     currentPage,
     pageSize = 6,
     minPrice = 0,
-    maxPrice = 150000,
+    maxPrice = MAX_PRICE,
     brand = EBrands.ALL,
     sort,
   }) => {

@@ -15,14 +15,14 @@ const ProductsItemList = (props: IProductsItemGrid) => {
 
   return (
     <div className={styles.wrapper}>
-      <div className="border-r-2 p-2 basis-3/12">
+      <div className="border-r-2 p-4 basis-3/12 md:basis-full md:border-r-0 md:border-b-2">
         <Link to={`/products/${product.id}`}>
           <img className={styles.img} src={product.imageUrl} alt={product.title} />
         </Link>
       </div>
-      <div className="flex flex-col justify-start p-6 basis-9/12">
-        <h5 className={styles.title}>{product.title}</h5>
-        <p className={styles.descr}>{shortText(product.description, 400)}</p>
+      <div className="flex flex-col justify-start p-6 basis-9/12 md:basis-full">
+        <h5 className={`${styles.title}`}>{product.title}</h5>
+        <p className={styles.descr}>{shortText(product.description, 300)}</p>
         <div className="flex items-center gap-7">
           <h3 className="text-lg text-black font-semibold">
             {priceFormatingToRus(product.price)}₽

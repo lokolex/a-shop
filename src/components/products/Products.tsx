@@ -21,6 +21,8 @@ const Products = (props: IProductsProps) => {
   const productsStatus = useSelector(selectProductsStatus);
   const pageSize = useSelector(selectPageSize);
   const isLoading = productsStatus === Status.LOADING;
+  // const isLoading = true;
+
   const { isGrid } = props;
 
   const skeletonArray = [];

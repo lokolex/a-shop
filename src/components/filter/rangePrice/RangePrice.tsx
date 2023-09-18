@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { priceFormatingToRus } from '../../../utils/priceFormatingToRus';
-import { selectMaxPrice, setMaxPrice } from '../../../redux/slices/filterSlice/filterSlice';
+import {
+  selectMaxPrice,
+  setMaxPrice,
+  MAX_PRICE,
+  MIN_PRICE,
+} from '../../../redux/slices/filterSlice/filterSlice';
 
 import styles from './RangePrice.module.css';
 
 interface IRangePriceProps {
   isResetFilters: boolean;
   setIsResetFilters: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsShowFilter: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const RangePrice = (props: IRangePriceProps) => {
-  const { isResetFilters, setIsResetFilters } = props;
+  const { isResetFilters, setIsResetFilters, setIsShowFilter } = props;
   const maxPrice = useSelector(selectMaxPrice);
-  const [maxPriceValue, setMaxPriceValue] = useState(150000);
+  const [maxPriceValue, setMaxPriceValue] = useState(MAX_PRICE);
   const [isChange, setIsChange] = useState(false);
 
   const dispatch = useDispatch();
@@ -24,7 +30,7 @@ const RangePrice = (props: IRangePriceProps) => {
 
   useEffect(() => {
     if (isResetFilters) {
-      setMaxPriceValue(150000);
+      setMaxPriceValue(MAX_PRICE);
       setIsResetFilters(false);
     }
     // eslint-disable-next-line
@@ -33,6 +39,7 @@ const RangePrice = (props: IRangePriceProps) => {
   useEffect(() => {
     if (isChange) {
       dispatch(setMaxPrice(maxPriceValue));
+      setIsShowFilter(false);
     }
     setIsChange(false);
     // eslint-disable-next-line
@@ -47,11 +54,13 @@ const RangePrice = (props: IRangePriceProps) => {
           value={maxPriceValue}
           multiple
           onChange={(e) => setMaxPriceValue(+e.target.value)}
+          onTouchEnd={() => setIsChange(true)}
+          onTouchCancel={() => setIsChange(true)}
           onMouseUp={() => setIsChange(true)}
           onKeyUp={() => setIsChange(true)}
           type="range"
-          min={0}
-          max={150000}
+          min={MIN_PRICE}
+          max={MAX_PRICE}
           step={100}
           className={styles.price}
         />

@@ -1,10 +1,10 @@
 .wrapper {
   @apply animate-pulse cursor-wait h-[300px] w-full flex rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] 
-  dark:bg-neutral-700;
+  dark:bg-neutral-700 md:flex-col md:h-auto;
 }
 
 .img {
-  @apply w-[180px] h-[230px] bg-current text-base text-neutral-700 opacity-50 dark:text-neutral-50 rounded-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg;
+  @apply w-[180px] h-[230px] bg-current text-base text-neutral-700 opacity-50 dark:text-neutral-50 rounded-lg;
 }
 
 .title {

@@ -34,7 +34,7 @@ const Search = () => {
       <input
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
-        className="outline-none border-b-2 px-6 w-[300px]"
+        className="outline-none border-b-2 px-6 w-[300px] sm:w-[200px]"
         type="text"
         placeholder="Поиск по товарам"
       />

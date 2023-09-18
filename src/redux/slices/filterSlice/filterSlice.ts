@@ -3,13 +3,17 @@ import { EBrands, ESortValue, IFilterState } from './types';
 import { RootState } from '../../store';
 import { CategoriesProduct } from '../productsSlice/types';
 
+export const MAX_PRICE = 300000;
+export const MIN_PRICE = 0;
+export const PAGE_SIZE = 6;
+
 const initialState: IFilterState = {
   searchValue: '',
   categoriesFilter: CategoriesProduct.EMPTY,
   currentPage: 0,
-  pageSize: 6,
-  maxPrice: 150000,
-  minPrice: 0,
+  pageSize: PAGE_SIZE,
+  maxPrice: MAX_PRICE,
+  minPrice: MIN_PRICE,
   brands: EBrands.ALL,
   sort: ESortValue.NEW,
 };
@@ -38,7 +42,7 @@ export const filterSlice = createSlice({
     setMaxPrice: (state, action: PayloadAction<number>) => {
       state.maxPrice = action.payload;
 
-      if (action.payload !== 150000) {
+      if (action.payload !== MAX_PRICE) {
         state.currentPage = 0;
       }
     },

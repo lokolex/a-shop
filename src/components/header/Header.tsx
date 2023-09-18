@@ -4,7 +4,12 @@ import { AiFillHome } from 'react-icons/ai';
 import { FaShoppingCart, FaUser } from 'react-icons/fa';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUser, logout, selectAuthStatus } from '../../redux/slices/authSlice/authSlice';
+import {
+  selectUser,
+  logout,
+  selectAuthStatus,
+  selectIsAuth,
+} from '../../redux/slices/authSlice/authSlice';
 import { checkAdmin } from '../../utils/checkAdmin';
 import { Status } from '../../redux/slices/authSlice/types';
 import { BeatLoader } from 'react-spinners';
@@ -19,6 +24,7 @@ import styles from './Header.module.css';
 const Header = () => {
   const [isShow, setIsShow] = useState<boolean>(false);
   const user = useSelector(selectUser);
+  const isAuth = useSelector(selectIsAuth);
   const dispatch = useDispatch();
   const authStatus = useSelector(selectAuthStatus);
   const isLoading = authStatus === Status.LOADING;
@@ -82,8 +88,9 @@ const Header = () => {
                 </p>
               </Link>
             </div>
-            <Link to="/admin">
-              {isAdmin && (
+
+            {isAdmin && (
+              <Link to="/admin">
                 <button
                   onClick={handleHide}
                   type="button"
@@ -91,8 +98,9 @@ const Header = () => {
                 >
                   Admin
                 </button>
-              )}
-            </Link>
+              </Link>
+            )}
+
             <div className={styles.hamburger}>
               <GiHamburgerMenu
                 onClick={() => {
@@ -107,7 +115,7 @@ const Header = () => {
             >
               {<BeatLoader color="#c2410c" loading={isLoading} size={12} />}
               {isLoading ? null : (
-                <p className="text-white">{user ? userNameContent : 'Привет, гость'}</p>
+                <div className="text-white">{user ? userNameContent : 'Привет, гость'}</div>
               )}
 
               <nav>
@@ -117,11 +125,17 @@ const Header = () => {
                       <AiFillHome className="text-2xl" />
                     </NavLink>
                   </li>
-                  <li>
-                    <NavLink onClick={handleHide} className={styles['wrap-ul-link']} to="/about">
-                      О нас
-                    </NavLink>
-                  </li>
+                  {isAuth && (
+                    <li>
+                      <NavLink
+                        onClick={handleHide}
+                        className={styles['wrap-ul-link']}
+                        to="/myOrders"
+                      >
+                        Мои заказы
+                      </NavLink>
+                    </li>
+                  )}
                   <li>
                     {user ? (
                       <button

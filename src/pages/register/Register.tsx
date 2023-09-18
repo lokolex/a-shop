@@ -56,15 +56,15 @@ const Register = () => {
 
   return (
     <section className="my-10">
-      <div className="container h-full px-6 py-5 lg:max-w-full">
-        <div className="g-6 flex h-full flex-wrap items-center justify-center">
+      <div className="container md:max-w-full h-full px-6 py-5">
+        <div className="gap-6 flex h-full flex-wrap items-center justify-center md:flex-wrap">
           {/* <!-- Left column container with background--> */}
-          <div className="mb-12 w-7/12 md:w-10/12">
+          <div className="mb-12 basis-7/12 md:basis-10/12">
             <img src={registerImg} className="w-full" alt="Registration" />
           </div>
 
           {/* <!-- Right column container with form --> */}
-          <div className="md:w-10/12 lg:ml-6 lg:w-5/12">
+          <div className="ml-6 basis-4/12 md:basis-8/12">
             <form onSubmit={formik.handleSubmit}>
               {/* Fist name input */}
               <TEInput

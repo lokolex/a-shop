@@ -17,12 +17,11 @@ const Pagination = (props: IPaginationProps) => {
         breakLabel="..."
         nextLabel=">"
         onPageChange={(event) => handleClickOnPage(event.selected)}
-        pageRangeDisplayed={3}
+        pageRangeDisplayed={1}
         pageCount={totalPages}
         previousLabel="<"
-        // initialPage={currentPage}
         forcePage={currentPage}
-        marginPagesDisplayed={2}
+        marginPagesDisplayed={1}
         containerClassName={styles.wrapper}
         activeLinkClassName={styles['active-page']}
         disabledClassName={styles.disabled}

@@ -3,7 +3,11 @@ import Slider from 'react-slick';
 import dataSlider from './assets/data-slider';
 import MySliderItem from './MySliderItem';
 
-const MySlider = () => {
+interface IMySlider {
+  productsRef: React.RefObject<HTMLDivElement>;
+}
+
+const MySlider = ({ productsRef }: IMySlider) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -21,7 +25,7 @@ const MySlider = () => {
     <div>
       <Slider {...settings}>
         {dataSlider.map((slider) => (
-          <MySliderItem key={slider.title} {...slider} />
+          <MySliderItem key={slider.title} productsRef={productsRef} {...slider} />
         ))}
       </Slider>
     </div>

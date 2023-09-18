@@ -1,5 +1,6 @@
 import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 import { FaThList } from 'react-icons/fa';
+import { MdFilterAlt } from 'react-icons/md';
 import { useSelector } from 'react-redux';
 import { selectTotalProductCount } from '../../redux/slices/productsSlice/productsSlice';
 import Search from './search/Search';
@@ -9,10 +10,12 @@ import styles from './SearchPanel.module.css';
 
 interface ISearchPanelProps {
   isGrid: boolean;
+  isShowFilter: boolean;
   setIsGrid: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsShowFilter: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SearchPanel = ({ isGrid, setIsGrid }: ISearchPanelProps) => {
+const SearchPanel = ({ isGrid, isShowFilter, setIsGrid, setIsShowFilter }: ISearchPanelProps) => {
   const totalProducts = useSelector(selectTotalProductCount);
 
   const handleClickOnGrid = () => {
@@ -28,7 +31,7 @@ const SearchPanel = ({ isGrid, setIsGrid }: ISearchPanelProps) => {
   };
 
   return (
-    <div className="bg-white p-4 rounded shadow-white shadow flex items-center justify-between">
+    <div className="bg-white p-4 rounded shadow-white shadow flex items-center justify-between lg:flex-wrap lg:gap-3">
       <div className="flex items-center gap-3">
         <BsFillGrid3X3GapFill
           onClick={handleClickOnGrid}
@@ -43,8 +46,11 @@ const SearchPanel = ({ isGrid, setIsGrid }: ISearchPanelProps) => {
         <div className="text-gray-500">Всего товаров: {totalProducts}</div>
       </div>
       <Search />
-      <div className="flex gap-2">
-        <div className="text-gray-500">Сортировка:</div>
+      <div className="flex gap-2 items-center">
+        <button className="hidden xl:block" onClick={() => setIsShowFilter(!isShowFilter)}>
+          <MdFilterAlt size={20} color="#c2410c" />
+        </button>
+        <div className="text-gray-500 sm:hidden">Сортировка:</div>
         <Sort />
       </div>
     </div>

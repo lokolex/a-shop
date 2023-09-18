@@ -58,27 +58,29 @@ const ProductPage = () => {
   const description = isShortDescr ? shortText(product?.description, 350) : product?.description;
 
   const errorContent = isError && !isLoadingProduct && (
-    <div className="my-5 text-center">
+    <div className="my-5 h-[calc(100vh-280px)] text-center">
       <h2 className="text-center text-2xl font-semibold text-gray-800">Продукт не найден</h2>
     </div>
   );
 
+  //w-full h-screen flex items-center justify-center
+
   const loadContent = isLoadingProduct && !isError && (
-    <div className="w-full h-full flex items-center justify-center">
-      <GridLoader color="#c2410c" loading={isLoadingProduct} className="mt-7" />
+    <div className="w-full h-[calc(100vh-240px)] flex items-center justify-center">
+      <GridLoader color="#c2410c" loading={isLoadingProduct} />
     </div>
   );
 
   const mainContent = !isLoadingProduct && !isError && (
     <>
-      <div className="max-w-[480px]">
+      <div className="max-w-[480px] md:max-w-[320px]">
         <img className="w-full" src={product?.imageUrl} alt={product?.title} />
       </div>
       <div>
-        <h2 className="font-semibold text-2xl text-gray-800">{product?.title}</h2>
-        <h3 className="font-semibold text-2xl text-gray-800">{product?.brand}</h3>
+        <h2 className="font-semibold text-2xl text-gray-800 sm:text-xl">{product?.title}</h2>
+        <h3 className="font-semibold text-2xl text-gray-800 uppercase">{product?.brand}</h3>
 
-        <p className="mt-2 text-gray-800">{description}</p>
+        <p className="mt-2 text-gray-800 sm:text-sm">{description}</p>
 
         {isLongDescr && (
           <span
@@ -117,10 +119,12 @@ const ProductPage = () => {
 
   return (
     <div className="bg-white">
-      <div className={`container ${styles.main}`}>
-        {errorContent}
-        {loadContent}
-        {mainContent}
+      <div className="container md:max-w-full">
+        <div className={styles.main}>
+          {errorContent}
+          {loadContent}
+          {mainContent}
+        </div>
       </div>
     </div>
   );

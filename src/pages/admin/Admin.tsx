@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Pagination from '../../components/pagination/Pagination';
 import {
+  MAX_PRICE,
   selectCurrentPage,
   selectPageSize,
   selectSort,
@@ -42,7 +43,7 @@ const Admin = () => {
     dispatch(setSearchValue(''));
     dispatch(setCategoriesFilter(CategoriesProduct.EMPTY));
     dispatch(setCurrentPage(0));
-    dispatch(setMaxPrice(150000));
+    dispatch(setMaxPrice(MAX_PRICE));
     dispatch(setBrands(EBrands.ALL));
     // eslint-disable-next-line
   }, []);
@@ -55,15 +56,15 @@ const Admin = () => {
   }, [currentPage, pageSize, sort]);
 
   return (
-    <div className="container py-6">
-      <div className="flex justify-between">
+    <div className="container py-6  md:max-w-full">
+      <div className="flex justify-between md:flex-wrap">
         <Link to={'newProduct/add'}>
           <button type="button" className={`bg-info ${styles['button-add']}`}>
             Добавить продукт
           </button>
         </Link>
-        <div className="flex gap-2 items-center">
-          <div>Сортировка:</div>
+        <div className="flex gap-2 items-center md:mt-3">
+          <div className="block md:hidden">Сортировка:</div>
           <Sort />
         </div>
       </div>

@@ -9,6 +9,7 @@ import {
 } from '../../redux/slices/productsSlice/productsSlice';
 import { useSelector } from 'react-redux';
 import {
+  MAX_PRICE,
   selectBrands,
   selectCategoriesFilter,
   selectCurrentPage,
@@ -30,6 +31,9 @@ import Pagination from '../../components/pagination/Pagination';
 import { Status } from '../../redux/slices/authSlice/types';
 import { EBrands, ESortValue, IFilterState } from '../../redux/slices/filterSlice/types';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { createPortal } from 'react-dom';
+
+import styles from './Home.module.css';
 
 const Home = () => {
   const [isGrid, setIsGrid] = useState(true);
@@ -58,7 +62,7 @@ const Home = () => {
     }
   };
 
-  // Запрос продуктов, работа со строкой запроса и редакс//////////////////////////////////
+  // Запрос продуктов, работа со строкой запроса и редакс
   const isSelected = useRef(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -109,7 +113,7 @@ const Home = () => {
         newFilterObj.categoriesFilter === CategoriesProduct.EMPTY &&
         newFilterObj.currentPage === 1 &&
         newFilterObj.pageSize === 6 &&
-        newFilterObj.maxPrice === 150000 &&
+        newFilterObj.maxPrice === MAX_PRICE &&
         newFilterObj.minPrice === 0 &&
         newFilterObj.brands === EBrands.ALL
       ) {
@@ -161,26 +165,52 @@ const Home = () => {
     // eslint-disable-next-line
   }, [searchValue, categoriesFilter, currentPage, minPrice, maxPrice, pageSize, brand, sort]);
 
-  ////////////////////////////////////////////////////////////////////
-
   useEffect(() => {
     if (!window.localStorage.getItem('isGrid')) return;
     const value = JSON.parse(window.localStorage.getItem('isGrid') || '');
     setIsGrid(value);
   }, []);
 
+  //Работа с элементом фильтр в зависимости от размера экрана
+  const [isShowFilter, setIsShowFilter] = useState(false);
+
+  useEffect(() => {
+    if (isShowFilter) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [isShowFilter]);
+
   return (
     <>
-      {/* <MySlider /> */}
-      <div className="bg-gray-100 py-8">
+      <MySlider productsRef={productsRef} />
+      <div className="bg-gray-100 py-8 relative">
         <div className="container md:max-w-full">
-          <div className="flex gap-4">
-            <div className="basis-1/4">
-              <Filter />
+          <div className="flex gap-4 xl:block">
+            <div
+              className={
+                isShowFilter
+                  ? `basis-1/4 ${styles.filter} ${styles['filter-active']}`
+                  : `basis-1/4 ${styles.filter}`
+              }
+            >
+              <Filter setIsShowFilter={setIsShowFilter} />
+              {isShowFilter
+                ? createPortal(
+                    <div onClick={() => setIsShowFilter(false)} className={styles.overlay}></div>,
+                    document.body
+                  )
+                : null}
             </div>
             <div className="basis-3/4">
               <div ref={productsRef}>
-                <SearchPanel isGrid={isGrid} setIsGrid={setIsGrid} />
+                <SearchPanel
+                  isGrid={isGrid}
+                  setIsGrid={setIsGrid}
+                  setIsShowFilter={setIsShowFilter}
+                  isShowFilter={isShowFilter}
+                />
               </div>
 
               {!products.length && !isLoading && (

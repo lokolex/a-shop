@@ -15,7 +15,7 @@ const MyLayout = (): JSX.Element => {
       <div className="flex-none">
         <Footer />
       </div>
-      <ToastContainer autoClose={2000} theme="colored" position="top-left" />
+      <ToastContainer autoClose={3000} theme="colored" position="top-left" />
     </div>
   );
 };
