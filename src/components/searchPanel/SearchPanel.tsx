@@ -48,7 +48,7 @@ const SearchPanel = ({ isGrid, isShowFilter, setIsGrid, setIsShowFilter }: ISear
       <Search />
       <div className="flex gap-2 items-center">
         <button className="hidden xl:block" onClick={() => setIsShowFilter(!isShowFilter)}>
-          <MdFilterAlt size={20} color="#c2410c" />
+          <MdFilterAlt size={30} color="#c2410c" />
         </button>
         <div className="text-gray-500 sm:hidden">Сортировка:</div>
         <Sort />
